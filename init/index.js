@@ -1,66 +1,59 @@
-//this program is used to insert Bulk of data in statabse using node.js with the help  of mongoose package 
+// this program is used to insert bulk data into database
+
+require("dotenv").config({ path: "../.env" });
 
 
+const mongoose = require("mongoose");
+
+const initdata = require("./data.js");
+
+const Listing = require("../models/listing.js");
 
 
-const mongoose=require("mongoose");
-
-const initdata=require("./data.js");  //get the data from the data.js to insert in database 
-
-
-const Listing =require("../models/listing.js");   //importing listing to for schema fo the document 
+// MongoDB Atlas URL
+const dburl = process.env.ATLASDB_URL;
 
 
+// connect database
+async function main() {
 
-//connecting mongoDB with node.js using mongoose to add data in database 
+   await mongoose.connect(dburl);
 
- async function main() {
-   await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
- }
-      
- //adding document in wanserlust database 
- 
- //conectingting with database is asynchronous action so async await is used
- 
- 
- //main function returns a promise so we can use then and catch method to handle the promise
- main().then((res)=>{
-     console.log("database connected successfully");
- }).catch((err)=>{
-     console.log(err);
- });
+}
 
 
- 
-//this function add the data in database 
+// connect mongoose
+main()
+.then(() => {
 
- const initDB= async () => {
-   
-    await Listing.deleteMany();  //listing is a collection created by model 
+   console.log("Database Connected Successfully");
 
+   initDB();
 
+})
+.catch((err) => {
 
-     // assign owner to every listing
-    const listingsWithOwner = initdata.data.map((obj) => ({
-        ...obj,
-        Owner: "6a01704dfb6ffdf2c299f11c"
-    }));
+   console.log(err);
 
-
-
-    //inserting data into listing collection as per the listing schema defined in the listing.js file
-    await Listing.insertMany(listingsWithOwner);  //accseing key from the data imported 
-    
-    //added a bulk of data in the database using insertMany() method of mongoose which is used to insert multiple documents in the collection at once
-    
-    
-    console.log("Data was intitialized");
-
-    
- }
- initDB();  //calling the function ot run command to add the bulk of data in the database 
+});
 
 
- 
+// initialize database
+const initDB = async () => {
+
+   // delete old data
+   await Listing.deleteMany({});
+
+   // add owner to every listing
+   const listingsWithOwner = initdata.data.map((obj) => ({
+      ...obj,
+      owner: "6a01704dfb6ffdf2c299f11c"
+   }));
 
 
+   // insert new data
+   await Listing.insertMany(listingsWithOwner);
+
+   console.log("Data Initialized");
+
+};

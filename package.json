@@ -1,8 +1,7 @@
 {
   "engines": {
-    "node":"25.5.0"
+    "node": "25.5.0"
   },
-  
   "name": "airbnb_majorproject",
   "version": "1.0.0",
   "description": "",
