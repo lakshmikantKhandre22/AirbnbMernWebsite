@@ -7,9 +7,9 @@ const Listing = require("../models/listing.js");
 
 const Review = require("../models/review.js");
 
-const wrapAsync = require("../utils/wrapAsync.js");
+const wrapAsync = require("../Utils/wrapAsync.js");
 
-const CustomErrorclass = require("../utils/CustomErrorclass.js");
+const CustomErrorclass = require("../Utils/CustomErrorclass.js");
 
 const { reviewSchema } = require("../schema.js");
 

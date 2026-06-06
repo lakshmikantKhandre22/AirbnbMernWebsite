@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user.js");  //to create a object of the module class i.e to create the user 
-const wrapAsync = require("../utils/wrapAsync.js");
+const wrapAsync = require("../Utils/wrapAsync.js");
 
 const passport = require("passport");
 
