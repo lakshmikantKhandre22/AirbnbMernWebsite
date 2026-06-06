@@ -2,14 +2,14 @@ const Listing = require("./models/listing");
 
 const { listingSchema } = require("./schema.js");
 
-const CustomErrorclass = require("./Utils/CustomErrorclass.js");
+const CustomErrorclass = require("./utils/CustomErrorclass.js");
 
 
 const { reviewSchema } = require("./schema.js");
- 
+
 
 const Review = require("./models/review");
- 
+
 
 
 
@@ -46,26 +46,26 @@ module.exports.saveRedirectUrl = (req, res, next) => {
     }
 
     next();
-}; 
+};
 
 
 
 
 
 
-module.exports.isOwner=async (req,res,next)=>{
+module.exports.isOwner = async (req, res, next) => {
 
-        let { id } = req.params;
-    
-            // Authorization for updating the listing
-            let listing = await Listing.findById(id);
-    
-            if (!listing.Owner.equals(res.locals.currUser._id)) {
-                req.flash("failure", "you are not the owner of this listing so you are not allowed");
-                return res.redirect(`/listings/${id}`);
-            }
+    let { id } = req.params;
 
-            next();  //if it user is valid then proceed 
+    // Authorization for updating the listing
+    let listing = await Listing.findById(id);
+
+    if (!listing.Owner.equals(res.locals.currUser._id)) {
+        req.flash("failure", "you are not the owner of this listing so you are not allowed");
+        return res.redirect(`/listings/${id}`);
+    }
+
+    next();  //if it user is valid then proceed 
 
 }
 
@@ -135,5 +135,5 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     }
 
     next();
-}; 
+};
 

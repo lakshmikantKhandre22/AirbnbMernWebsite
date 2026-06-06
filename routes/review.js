@@ -7,35 +7,35 @@ const Listing = require("../models/listing.js");
 
 const Review = require("../models/review.js");
 
-const wrapAsync = require("../Utils/wrapAsync.js");
+const wrapAsync = require("../utils/wrapAsync.js");
 
-const CustomErrorclass = require("../Utils/CustomErrorclass.js");
+const CustomErrorclass = require("../utils/CustomErrorclass.js");
 
 const { reviewSchema } = require("../schema.js");
 
 const { validateReview, isLoggedIn } = require("../middleware.js");
 
 
-    //extracting only one property from object 
-const { isReviewAuthor}=require("../middleware.js");
+//extracting only one property from object 
+const { isReviewAuthor } = require("../middleware.js");
 
 
 
 
 //Extracting whole objcet of modules 
-const reviewController=require("../controllers/review.js");  
+const reviewController = require("../controllers/review.js");
 
 
 
- //Router decides the path of the request 
- //It handles how request comes and how to manage and send the response 
-  
+//Router decides the path of the request 
+//It handles how request comes and how to manage and send the response 
+
 
 
 
 // Add Review Route
 router.post(
-    "/",isLoggedIn,
+    "/", isLoggedIn,
     validateReview,
     wrapAsync(reviewController.createReview)
 
@@ -46,7 +46,7 @@ router.post(
 
 // Delete Review Route
 router.delete(
-    "/:reviewId",isLoggedIn,isReviewAuthor,
+    "/:reviewId", isLoggedIn, isReviewAuthor,
     wrapAsync(reviewController.deleteReview)
 
 );

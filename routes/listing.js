@@ -2,21 +2,21 @@ const express = require("express");
 
 const router = express.Router();
 
-const wrapAsync = require("../Utils/wrapAsync.js");
+const wrapAsync = require("../utils/wrapAsync.js");
 
-const { isLoggedIn,isOwner,validateListing} = require("../middleware.js");
- 
+const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
+
 const listingController = require("../controllers/listing.js");
 
-const multer  = require('multer')  //import multer middleware for file uploads in express.js 
+const multer = require('multer')  //import multer middleware for file uploads in express.js 
 
-const {storage}=require("../cloudConfig.js");  //import cloudinary storage 
+const { storage } = require("../cloudConfig.js");  //import cloudinary storage 
 
 
 // const upload = multer({ dest: 'uploads/' })   //uploads files in the uploads folder  
 
 
-const upload=multer({storage});    //upload files in the cloudinary storage 
+const upload = multer({ storage });    //upload files in the cloudinary storage 
 
 
 const Listing = require("../models/listing");
@@ -34,7 +34,7 @@ const Listing = require("../models/listing");
 
 
 
- //Router decides the path of the request 
+//Router decides the path of the request 
 
 
 
@@ -73,17 +73,17 @@ router.get("/search", async (req, res) => {
 
 
 router.route("/")  // INDEX ROUTE
-    .get(
-        wrapAsync(listingController.index)
-    )
-    .post(   //Create New Listing Route 
-        isLoggedIn,
-        validateListing,
-        upload.single('listing[image]'),  //upload image on cloudinary storage using multer middleware 
+  .get(
+    wrapAsync(listingController.index)
+  )
+  .post(   //Create New Listing Route 
+    isLoggedIn,
+    validateListing,
+    upload.single('listing[image]'),  //upload image on cloudinary storage using multer middleware 
 
-        wrapAsync(listingController.createNewListing)
-    );
- 
+    wrapAsync(listingController.createNewListing)
+  );
+
 
 
 
@@ -91,9 +91,9 @@ router.route("/")  // INDEX ROUTE
 
 // NEW ROUTE
 router.get(
-    "/new",
-    isLoggedIn,
-    listingController.renderNewForm
+  "/new",
+  isLoggedIn,
+  listingController.renderNewForm
 );
 
 
@@ -115,28 +115,28 @@ router.get(
 
 // SHOW ROUTE
 router.get(
-    "/:id",
-    wrapAsync(listingController.showListing)
+  "/:id",
+  wrapAsync(listingController.showListing)
 );
 
 
 // EDIT ROUTE
 router.get(
-    "/:id/edit",
-    isLoggedIn,
-    isOwner,
-    wrapAsync(listingController.rendereditForm)
+  "/:id/edit",
+  isLoggedIn,
+  isOwner,
+  wrapAsync(listingController.rendereditForm)
 );
 
 
 // UPDATE ROUTE
 router.put(
-    "/:id",
-    isLoggedIn,
-    isOwner,
-    upload.single('listing[image]'),   //Multer parse the image and upload on Cloudinary  
-    validateListing,
-    wrapAsync(listingController.updateListing)
+  "/:id",
+  isLoggedIn,
+  isOwner,
+  upload.single('listing[image]'),   //Multer parse the image and upload on Cloudinary  
+  validateListing,
+  wrapAsync(listingController.updateListing)
 );
 
 
@@ -144,10 +144,10 @@ router.put(
 
 // DELETE ROUTE
 router.delete(
-    "/:id",
-    isLoggedIn,
-    isOwner,
-    wrapAsync(listingController.deleteListing)
+  "/:id",
+  isLoggedIn,
+  isOwner,
+  wrapAsync(listingController.deleteListing)
 );
 
 

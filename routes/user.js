@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const User=require("../models/user.js")  ;  //to create a object of the module class i.e to create the user 
-const wrapAsync = require("../Utils/wrapAsync.js");
+const User = require("../models/user.js");  //to create a object of the module class i.e to create the user 
+const wrapAsync = require("../utils/wrapAsync.js");
 
 const passport = require("passport");
 
@@ -20,15 +20,15 @@ const passport = require("passport");
 
 //ERxportring the controlling 
 
-const UserController=require("../controllers/user.js");
+const UserController = require("../controllers/user.js");
 
 
 
 //1. signup Route  -->> Register(Create) the user 
 // after the user request for the signup send a form for signup 
 
-router.get("/signup",(req,res)=>{
-    res.render("users/signup.ejs");
+router.get("/signup", (req, res) => {
+  res.render("users/signup.ejs");
 
 })
 
@@ -38,7 +38,7 @@ router.get("/signup",(req,res)=>{
 //after filling the form user post request to store the information 
 //Signup Route
 
-router.post("/signup",wrapAsync(UserController.signupuser)
+router.post("/signup", wrapAsync(UserController.signupuser)
 );
 
 
@@ -49,15 +49,15 @@ router.post("/signup",wrapAsync(UserController.signupuser)
 //3. Login Route (Get the user)  
 //User is already Registered now login 
 
-router.get("/login",UserController.renderloginform);
+router.get("/login", UserController.renderloginform);
 
 
 
-module.exports=router;  //means we can use this route in main express app 
+module.exports = router;  //means we can use this route in main express app 
 
 
 
- 
+
 
 
 
@@ -83,14 +83,14 @@ router.post(
     failureRedirect: "/login",
     failureFlash: true,
   }),
-UserController.AutomaticLoginAfterSignup
+  UserController.AutomaticLoginAfterSignup
 );
 
 
 
 //5.   Logout Route
-      //user will logout from the session 
-      
+//user will logout from the session 
+
 router.get("/logout", UserController.Logout);
 
 
@@ -100,5 +100,5 @@ router.get("/logout", UserController.Logout);
 
 
 
- 
+
 

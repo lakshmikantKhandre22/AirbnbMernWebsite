@@ -8,7 +8,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const CustomErrorclass = require("./Utils/CustomErrorclass.js");
+const CustomErrorclass = require("./utils/CustomErrorclass.js");
 const session = require("express-session");
 const MongoStore = require("connect-mongo").default;
 const flash = require("connect-flash");
@@ -16,7 +16,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
-const wrapAsync = require("./Utils/wrapAsync.js");
+const wrapAsync = require("./utils/wrapAsync.js");
 const listingController = require("./controllers/listing.js");
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
