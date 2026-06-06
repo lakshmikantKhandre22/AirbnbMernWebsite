@@ -1,5 +1,5 @@
 const Listing = require("../models/listing.js");
-const { geocodeAddress } = require("../utils/geocode.js");
+const { geocodeAddress } = require("../Utils/geocode.js");
 
 
 // INDEX ROUTE
